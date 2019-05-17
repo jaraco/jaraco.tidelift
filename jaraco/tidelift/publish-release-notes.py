@@ -20,7 +20,7 @@ def run():
         text=True,
     ).stdout.split()
     platform = 'pypi'
-    path = f'/lifting/{platform}/{name}/release-notes/{version}'
+    path = f'lifting/{platform}/{name}/release-notes/{version}'
     rtd_name = name.replace('.', '')
     release_notes = f'https://{rtd_name}.readthedocs.io/en/latest/history.html'
     session.post(path, data=release_notes).raise_for_status()
