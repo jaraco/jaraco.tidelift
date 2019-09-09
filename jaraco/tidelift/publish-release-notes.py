@@ -12,7 +12,7 @@ session.headers = dict(Authorization=f'Bearer {os.environ.get("TIDELIFT_TOKEN")}
 
 
 @autocommand.autocommand(__name__)
-def run():
+def run(template='https://{flat_name}.readthedocs.io/en/latest/history.html'):
     name, version = subprocess.run(
         [sys.executable, 'setup.py', '--name', '--version'],
         check=True,
@@ -21,6 +21,9 @@ def run():
     ).stdout.split()
     platform = 'pypi'
     path = f'lifting/{platform}/{name}/release-notes/{version}'
-    rtd_name = name.replace('.', '')
-    release_notes = f'https://{rtd_name}.readthedocs.io/en/latest/history.html'
-    session.post(path, data=release_notes).raise_for_status()
+    data = template.format(
+        flat_name=name.replace('.', ''),
+        flat_ver=version.replace('.', ''),
+        **locals()
+    )
+    session.post(path, data=data).raise_for_status()
