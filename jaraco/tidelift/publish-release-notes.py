@@ -22,8 +22,6 @@ def run(template='https://{flat_name}.readthedocs.io/en/latest/history.html'):
     platform = 'pypi'
     path = f'lifting/{platform}/{name}/release-notes/{version}'
     data = template.format(
-        flat_name=name.replace('.', ''),
-        flat_ver=version.replace('.', ''),
-        **locals()
+        flat_name=name.replace('.', ''), flat_ver=version.replace('.', ''), **locals()
     )
     session.post(path, data=data).raise_for_status()
