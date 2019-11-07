@@ -1,3 +1,9 @@
+v1.2.0
+======
+
+Allow loading token from keyring to support packages that
+cannot be installed from CI, such as those in Jazzband.
+
 v1.1.0
 ======
 

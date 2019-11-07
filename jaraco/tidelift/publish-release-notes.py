@@ -1,14 +1,24 @@
 import os
 import sys
 import subprocess
+import getpass
 
+import keyring
 import autocommand
 from requests_toolbelt import sessions
 
 
+def load_token():
+    token = os.environ.get("TIDELIFT_TOKEN") or keyring.get_password(
+        'https://api.tidelift.com/external-api/', getpass.getuser()
+    )
+    assert token, "Token not available"
+    return token
+
+
 url = 'https://api.tidelift.com/external-api/'
 session = sessions.BaseUrlSession(url)
-session.headers = dict(Authorization=f'Bearer {os.environ.get("TIDELIFT_TOKEN")}')
+session.headers = dict(Authorization=f'Bearer {load_token()}')
 
 
 @autocommand.autocommand(__name__)
