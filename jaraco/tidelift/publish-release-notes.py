@@ -8,6 +8,9 @@ import autocommand
 from requests_toolbelt import sessions
 
 
+session = sessions.BaseUrlSession('https://api.tidelift.com/external-api/')
+
+
 def load_token():
     token = os.environ.get("TIDELIFT_TOKEN") or keyring.get_password(
         'https://api.tidelift.com/external-api/', getpass.getuser()
@@ -16,13 +19,9 @@ def load_token():
     return token
 
 
-url = 'https://api.tidelift.com/external-api/'
-session = sessions.BaseUrlSession(url)
-session.headers = dict(Authorization=f'Bearer {load_token()}')
-
-
 @autocommand.autocommand(__name__)
 def run(template='https://{flat_name}.readthedocs.io/en/latest/history.html'):
+    session.headers.update(Authorization=f'Bearer {load_token()}')
     name, version = subprocess.run(
         [sys.executable, 'setup.py', '--name', '--version'],
         check=True,
