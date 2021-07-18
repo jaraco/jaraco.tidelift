@@ -1,4 +1,4 @@
-from importlib.resources import files
+from importlib_resources import files
 
 from docutils.parsers import rst
 from docutils.nodes import raw
