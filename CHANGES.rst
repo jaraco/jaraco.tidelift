@@ -1,3 +1,10 @@
+v1.4.0
+======
+
+Add ``jaraco.tidelift`` Sphinx extension, implementing
+the referral banner through a simple directive:
+``tidelift-referral-banner``.
+
 v1.3.0
 ======
 
