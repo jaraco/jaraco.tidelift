@@ -6,7 +6,9 @@ from docutils.nodes import raw
 
 class ReferralBanner(rst.Directive):
     def run(self):
-        template = files(__package__).joinpath('banner.html').read_text()
+        template = (
+            files(__package__).joinpath('banner.html').read_text(encoding='utf-8')
+        )
         content = template.replace('{{ project }}', self.app.config.project)
         return [raw('', content, format='html')]
 

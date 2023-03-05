@@ -1,3 +1,8 @@
+v1.5.1
+======
+
+Fixed EncodingWarning in ReferralBanner.
+
 v1.5.0
 ======
 
